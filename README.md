@@ -58,6 +58,11 @@ knn(train,test,cl,k=5)
 output: low
 
 
+#assumptions
+distance
+training data was labeled or classified
+pick k number
+add more features and check how that aters evaluation metric-- tunning feature and k(in case of overfittng)
 
 
 
