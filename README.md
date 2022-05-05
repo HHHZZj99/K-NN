@@ -16,14 +16,51 @@
 
 > n.point<-1000#number of rows in the dataset
 > sampling.rate<-0.8
-> num.test.set.labels<-n.points*(1-sampling.rate)#the misclassification rate
-> training<-sample(1:n.points,sampling.rate*n.points,replace=FALSE)#randomly sample which row will go in the training set
+> num.test.set.labels<-n.points*(1-sampling.rate) 
+> #the misclassification rate
+> training<-sample(1:n.points,sampling.rate*n.points,replace=FALSE)
+> #randomly sample which row will go in the training set
 > train<-subset(data[training,],select=c(age,income))#define the training set to be those rows
 > 
 > testing<-setdiff(1:n.points,training)#the other rows are going to the test set
-> test<-subset(data[taining,],select=c(age,income))#define the test set to be the other rows
-Error in `[.data.frame`(data, taining, ) : 找不到对象'taining'
 > test<-subset(data[training,],select=c(age,income))#define the test set to be the other rows
 > cl<-data$credit[training]#this is the subset of labels for the training set
 > true.labels<-data$credit[testing]#subset of labels for testing
 >
+
+
+#loop through and see what the misclassification rate is fr different values of k
+for(k in 1:20){
+print(k)
+predicted.labels<-knn(train,test,cl,k)
+num.incorrect.labels<-sum(predicted.labels!=true.labels)
+misclassification.rate<-num.incorrect.labeld/num.test.set.labels
+print(misclassification.rate)
+}
+
+
+output:
+k     misclassification
+1     0.28
+2     0.315
+3     0.26
+4     0.255
+5     0.23
+6     0.26
+7     0.25
+8     0.25
+9     0.235
+10    0.24
+
+#chose the smallest mmisclassification that is when k=5,apply to sb 57 with 37000$ salary
+test<-c(57,37)
+knn(train,test,cl,k=5)
+output: low
+
+
+
+
+
+
+
+
